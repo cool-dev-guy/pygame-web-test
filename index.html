@@ -1,11 +1,11 @@
-<html lang="en-us"><script src="https://pygame-web.github.io/archives/0.7/pythons.js" type=module id="site" data-os="vtx,fs,snd,gui" async defer>#<!--
+<html lang="en-us"><script src="http://localhost:8000//archives/0.7/pythons.js" type=module id="site" data-os="vtx,fs,snd,gui" async defer>#<!--
 
 print("""
 Loading src2 from src2.apk
     Pygbag Version : 0.7.1
     Template Version : 0.7.0
     Python  : 3.11
-    CDN URL : https://pygame-web.github.io/archives/0.7/
+    CDN URL : http://localhost:8000//archives/0.7/
     Screen  : {{cookiecutter.width}}x{{cookiecutter.height}}
     Title   : src2
     Folder  : src2
@@ -62,7 +62,7 @@ async def custom_site():
     import embed
 
 
-    platform.document.body.style.background = "#7f7f7f"
+    platform.document.body.style.background = "#111"
 
     import pygame
 
@@ -110,16 +110,18 @@ async def custom_site():
 
     marginx = ux(.020) # 20%
     marginy = uy(.045) # 45%
-
+    centreofc = 1
 
     def pg_bar(pos):
         nonlocal marginx, marginy
         # resolution of progress bar, recalculate since it may not be know yet.
         total = track.len or 10  # avoid div0
         slot = ux(.060)/ total # 60%
-
-        pygame.draw.rect(screen,(10,10,10),( marginx-ux(10), marginy-uy(10), (total*slot)+ux(20), uy(110) ) )
-        pygame.draw.rect(screen,(0,255,0), ( marginx, marginy, track.pos*slot, uy(90)) )
+        print(track.pos*slot)
+        global centreofc
+        centreofc = track.pos*slot
+        pygame.draw.rect(screen,(156, 64, 3),( marginx-ux(10), marginy-uy(10), (total*slot)+ux(20), uy(110) ),2,5 )
+        pygame.draw.rect(screen,(0, 0, 0), ( marginx, marginy, track.pos*slot, uy(90)) ,0,10 )
 
     # wait until zip mount + overlayfs is complete
     while not track.ready:
@@ -169,9 +171,10 @@ async def custom_site():
 
         # now make a prompt
         fnt = pygame.sysfont.SysFont("freesans",  uy(80) )
-        prompt = fnt.render("Ready to start !", True, "blue")
+        prompt = fnt.render("CLICK TO START ", True, (237, 145, 7))
+
         pg_bar(track.len)
-        screen.blit(prompt, ( marginx+ ux(80), marginy - uy(10) ) )
+        screen.blit(prompt, ( marginx + ux(350), marginy - uy(10)+uy(30) ) )
         compose()
         print("""
         * Waiting for media user engagement : please click/touch page *
@@ -241,7 +244,7 @@ config = {
     can_close : 0,
     archive : "src2",
     gui_debug : 3,
-    cdn : "https://pygame-web.github.io/archives/0.7/",
+    cdn : "http://localhost:8000//archives/0.7/",
     autorun : 0,
     PYBUILD : "3.11"
 }
@@ -256,10 +259,10 @@ config = {
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
-    <link rel="prefetch" href="https://pygame-web.github.io/archives/0.7/pythonrc.py">
-    <link rel="prefetch" href="https://pygame-web.github.io/archives/0.7/vt/xterm.js">
-    <link rel="prefetch" href="https://pygame-web.github.io/archives/0.7/vt/xterm-addon-image.js">
-    <link rel="prefetch" href="https://pygame-web.github.io/archives/0.7/vt/xterm-addon-image.js">
+    <link rel="prefetch" href="http://localhost:8000//archives/0.7/pythonrc.py">
+    <link rel="prefetch" href="http://localhost:8000//archives/0.7/vt/xterm.js">
+    <link rel="prefetch" href="http://localhost:8000//archives/0.7/vt/xterm-addon-image.js">
+    <link rel="prefetch" href="http://localhost:8000//archives/0.7/vt/xterm-addon-image.js">
 
 
     <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
@@ -306,7 +309,7 @@ config = {
             font-family: arial;
             margin: 0;
             padding: none;
-            background-color:powderblue;
+            background-color:#111;
         }
 
         .topright{
@@ -341,7 +344,7 @@ config = {
         }
     </style>
 
-    <script src="https://pygame-web.github.io/archives/0.7//browserfs.min.js"></script>
+    <script src="http://localhost:8000//archives/0.7//browserfs.min.js"></script>
 
 </head>
 
@@ -393,7 +396,7 @@ height="1px"
             <iframe id="iframe" class="framed" name="iframe"
 width="470px" height="90%"
 allowtransparency="true"
-style="z-index: 10; style="background: #FFFFFF;"
+style="z-index: 10; style="background: #111;"
 frameborder="1"
                 allowfullscreen="true"
                 webkitallowfullscreen="true"
@@ -401,7 +404,7 @@ frameborder="1"
                 mozallowfullscreen="true"
                 sandbox="allow-same-origin allow-top-navigation allow-scripts allow-pointer-lock"
                 allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization; xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated"
-                src="https://pygame-web.github.io/archives/0.7/empty.html"
+                src="http://localhost:8000//archives/0.7/empty.html"
                 scrolling="yes">
             </iframe>
         </div>
