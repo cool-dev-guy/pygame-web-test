@@ -15,3 +15,4 @@
 - use .ogg files or others,never use .mp3 or .wav
 - use .png/.jpg files for images dont use .bmp etc.
 - use main file as `main.py`
+### example made using the src code of @dafluffypotato
